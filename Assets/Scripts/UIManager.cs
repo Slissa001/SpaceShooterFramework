@@ -82,14 +82,9 @@ public class UIManager : MonoBehaviour
         StartCoroutine(OutOfBulletsFlick());
     }
 
-    public void MoreBullets()
-    {
-        _outOfBullets.gameObject.SetActive(false);
-    }
-
     IEnumerator OutOfBulletsFlick()
     {
-        while(_outOfBullets == true)
+        while(_startStopBullets == true)
         {
             _outOfBullets.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.5f);

@@ -119,8 +119,6 @@ public class Player : MonoBehaviour
         {
             _audioSource.clip = _laserSFX;
         }
-
-
     }
 
     // Update is called once per frame
@@ -138,8 +136,7 @@ public class Player : MonoBehaviour
             FireLaser();
         }
     }
-    
-    
+        
     void CalculateMovement()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
