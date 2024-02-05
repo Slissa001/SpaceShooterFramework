@@ -68,6 +68,8 @@ public class Player : MonoBehaviour
     private bool _speedBoostActive = false;
     private bool _playerShieldActive = false;
     private bool _barRecharge = false;
+    private Coroutine _coroutine;
+    private Coroutine _sShotcouroutine;
     
 
     [SerializeField]
@@ -220,15 +222,17 @@ public class Player : MonoBehaviour
         {
             Instantiate(_tripleshotPrefab, transform.position + _tripleshotOffset, Quaternion.identity);
         }
-        else if (_tripleShotActive == false && _sShotActive == true)
+        
+        if (_tripleShotActive == false && _sShotActive == true)
         {
             FireSShot();
+            StopCoroutine(_coroutine);
         }
         else
         {
             Instantiate(_laserPrefab, transform.position + _laserOffset, Quaternion.identity);
         }
-
+        
         _audioSource.Play();
         //play laser audioclip here
     }
@@ -292,7 +296,7 @@ public class Player : MonoBehaviour
         if (_lives == 2)
         {
             _rightEngine.SetActive(true);
-            _leftEngine.SetActive(false);
+            
         }
 
         if (_lives == 1)
@@ -331,7 +335,7 @@ public class Player : MonoBehaviour
     public void tripleShotActivate()
     {
         _tripleShotActive = true;
-        StartCoroutine(tripleShotPowerDownRoutine());
+        _coroutine = StartCoroutine(tripleShotPowerDownRoutine());
         //start the coroutine for the tripleshot to power down after so many seconds
     }
     IEnumerator tripleShotPowerDownRoutine()
@@ -345,7 +349,7 @@ public class Player : MonoBehaviour
     public void FireSShotActivate()
     {
         _sShotActive = true;
-        StartCoroutine(SShotPowerDownRoutine());
+        _sShotcouroutine = StartCoroutine(SShotPowerDownRoutine());
     }
     IEnumerator SShotPowerDownRoutine()
     {
